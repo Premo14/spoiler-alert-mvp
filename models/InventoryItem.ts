@@ -6,6 +6,7 @@ export interface IInventoryItem extends Document {
     quanity: number;
     isPerishable: boolean;
     expirationDate?: Date;
+    isAvailable: boolean;
 }
 
 const InventoryItemSchema: Schema = new Schema({
@@ -13,7 +14,8 @@ const InventoryItemSchema: Schema = new Schema({
     productName: { type: String, required: true },
     quantity: { type: Number, required: true },
     isPerishable: { type: Boolean, required: true },
-    expirationDate: {type: Date, required: false}
+    expirationDate: { type: Date, required: false },
+    isAvailable: { type: Boolean, required: true }
 });
 
 export default mongoose.model<IInventoryItem>('InventoryItem', InventoryItemSchema);

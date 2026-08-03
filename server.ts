@@ -23,4 +23,13 @@ app.post('/api/inventory', async (req: Request, res: Response) => {
   res.status(201).json(newItem);
 });
 
+app.patch('/api/inventory/:id', async (req: Request, res: Response) => {
+  const updatedItem = await InventoryItem.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+      { returnDocument: "after" }
+  )
+  res.json(updatedItem)
+})
+
 app.listen(5000, () => console.log('Server running on port 5000'));

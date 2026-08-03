@@ -6,11 +6,12 @@ interface InventoryItem {
   productName: string;
   quantity: number;
   expirationDate?: string | null;
+  isAvailable: boolean;
 }
 
 function App() {
   const [items, setItems] = useState<InventoryItem[]>([]);
-  const [form, setForm] = useState({ brand: '', productName: '', quantity: 0, isPerishable: false, expirationDate: '' });
+  const [form, setForm] = useState({ brand: '', productName: '', quantity: 0, isPerishable: false, expirationDate: '', isAvailable: true });
 
   useEffect(() => {
     fetch('http://localhost:5000/api/inventory')
@@ -28,6 +29,16 @@ function App() {
     const newItem = await res.json();
     setItems([...items, newItem]);
   };
+
+  const handleClaim = async (item_id: string) => {
+    const res = await fetch(`http://localhost:5000/api/inventory/${item_id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({isAvailable: false})
+    });
+    const updatedItem = await res.json()
+    setItems(items.map(i => i._id === item_id ? updatedItem: i));
+  }
 
   return (
     <div style={{ padding: '20px' }}>
@@ -69,6 +80,9 @@ function App() {
             {item.brand} - {item.productName} 
             ({item.quantity} pallets) - 
             {item.expirationDate && calcDaysRemainingBeforeExpired(item.expirationDate) || " Non-perishable"}
+            {item.isAvailable ?
+              <button onClick={() => handleClaim(item._id)}>Claim Inventory</button> :
+              <button disabled>Not Available</button>}
           </li>
         ))}
       </ul>
