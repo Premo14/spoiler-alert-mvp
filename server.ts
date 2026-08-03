@@ -27,7 +27,7 @@ app.patch('/api/inventory/:id', async (req: Request, res: Response) => {
   const updatedItem = await InventoryItem.findByIdAndUpdate(
     req.params.id,
     req.body,
-      { returnDocument: "after" }
+    { returnDocument: "after" }
   )
   res.json(updatedItem)
 })

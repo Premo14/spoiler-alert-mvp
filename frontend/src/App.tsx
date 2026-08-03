@@ -43,6 +43,8 @@ function App() {
   return (
     <div style={{ padding: '20px' }}>
       <h1>Spoiler Alert: Excess Inventory Portal</h1>
+      <h3># of Available Pallets: {items.filter(i => i.isAvailable).length}</h3>
+      <h3># of Claimed Pallets: {items.filter(i => !i.isAvailable).length}</h3>
       
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Brand (e.g., Kraft)" onChange={e => setForm({...form, brand: e.target.value})} />
@@ -59,7 +61,8 @@ function App() {
                 expirationDate: e.target.checked ? form.expirationDate : ""
               })
             }
-          />Is item perishable?</label>
+          />Is item perishable?
+        </label>
         {form.isPerishable && (
           <input 
           type="date" 
