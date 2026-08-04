@@ -1,6 +1,7 @@
-import express, { type Request, type Response } from 'express';
-import mongoose from 'mongoose';
+import express from 'express';
 import cors from 'cors';
+import type { Request, Response } from 'express';
+import mongoose from 'mongoose';
 import 'dotenv/config'
 import InventoryItem from './models/InventoryItem';
 

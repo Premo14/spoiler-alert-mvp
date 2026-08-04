@@ -41,7 +41,7 @@ function App() {
   }
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px'}}>
       <h1>Spoiler Alert: Excess Inventory Portal</h1>
       <h3># of Available Pallets: {items.filter(i => i.isAvailable).length}</h3>
       <h3># of Claimed Pallets: {items.filter(i => !i.isAvailable).length}</h3>
